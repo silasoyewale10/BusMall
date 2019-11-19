@@ -39,21 +39,37 @@ var middleProductElem = document.getElementById("middle_product_img");
 var rightProductElem = document.getElementById("right_product_img");
 // console.log('here',leftProductElem)
 
+
+// var leftImage ;
+// var middleImage = '';
+// var rightImage ='';
+var nameOfLeftImage;
+var nameOfMiddleImage;
+var nameOfRightImage;
+
 var pickThreeProducts = function (leftImage, middleImage, rightImage) {
         var leftImageIndex = Math.floor(Math.random() * 20) ;
         leftProductElem.setAttribute('src',Product.arrOfProducts[leftImageIndex].imageSrc)
-       
-        
+        nameOfLeftImage= Product.arrOfProducts[leftImageIndex].name;
+        // console.log(this.name)
         var middleImageIndex = Math.floor(Math.random() * 20) ;
         middleProductElem.setAttribute('src',Product.arrOfProducts[middleImageIndex].imageSrc)
-       
-
+        nameOfMiddleImage = Product.arrOfProducts[middleImageIndex].name;
+        console.log('nameOfMiddleImage is ' + nameOfMiddleImage);
+        console.log(this.name)
+        
+        
         var rightImageIndex = Math.floor(Math.random() * 20) ;
         rightProductElem.setAttribute('src',Product.arrOfProducts[rightImageIndex].imageSrc)
-
-}
-pickThreeProducts();
-
+        nameOfRightImage = Product.arrOfProducts[rightImageIndex].name;
+        console.log('nameOfRightImage is ' + nameOfRightImage);
+    }
+    pickThreeProducts();
+    
+    // var imageleft = nameOfLeftImage;
+    // var imagemiddle = nameOfMiddleImage;
+    // var imageright = nameOfRightImage;
+    // console.log('nameOfLeftImage is ' + imageleft);
 
 var clickCounter=0;
 var clickMaxDefault = 25;  //default max if no click count is inputted. 
@@ -86,29 +102,29 @@ function terminateEvent (){
 function clickHandler(event){
     // for (var x =0; x <= 25; x++){
         pickThreeProducts();
+
+        var imageleft = nameOfLeftImage;
+    var imagemiddle = nameOfMiddleImage;
+    var imageright = nameOfRightImage;
+    console.log('nameOfLeft    Image is ' + imageleft);
+
         clickCounter++;
-        console.log("counter is" ,clickCounter)
-        console.log("Click max is ", clickMax)
+        // console.log("counter is" ,clickCounter)
+        // console.log("Click max is ", clickMax)
         if(clickCounter == clickMax){
             terminateEvent();
         }
+        console.log("event.target.name is " + imageleft)
+        console.log(Product.arrOfProducts[2].name);
+    // for (var x = 0; x <= clickMax; x++){
+    //     for (var j =0; j <= arrOfProducts.length; j++){
+    //         if (Product.arrOfProducts[j].name = Product.arrOfProducts)
+    //     }
+    // }    
 
-    //     console.log(x)
-    // }
-    // console.log('clickCounter is ', clickCounter)
-    // var thingIclickedon = event.target;
-    // console.log(thingIclickedon.Product().this.name)
-    // console.log(event.target.id)
-    // console.log(Product.arrOfProducts[1].name)
-    // var id = Product.arrOfProducts[2].name;
-    // Product.this.clicks++;
-    // console.log(id)
-    // console.log(Product().this.clicks)
-
-    // for (var x =0; x < Product.arrOfProducts.length; x++){
-    //     if(id === )
-    // }
-    
+    var thingIclickedOn = event.target;
+    var idOfProduct = event.target.id
+    console.log(idOfProduct);
 }
 
 
