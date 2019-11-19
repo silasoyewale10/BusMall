@@ -27,6 +27,8 @@ new Product('usb', './assets/usb.gif');
 new Product('water-can', './assets/water-can.jpg');
 new Product('glass', './assets/wine-glass.jpg');
 
+console.log(Product.arrOfProducts);
+
 // console.log(Product().this.imageSrc)
 
 // console.log(Product.arrOfProducts.length )
@@ -52,16 +54,21 @@ var pickThreeProducts = function (leftImage, middleImage, rightImage) {
 }
 pickThreeProducts();
 
+
 var clickCounter=0;
-var clickMaxDefault = 25;
-var clickMax = window.prompt("Boss, How many clicks do you want the user to make ? If you enter nothing, your default click max is 25")
-if (clickMax.valueOf.length == 0){
+var clickMaxDefault = 25;  //default max if no click count is inputted. 
+var clickMax = 0;   
+var choice = window.prompt("Boss, How many clicks do you want the user to make ? If you enter nothing, your default click max is 25")
+if (choice.length == '0'){  //input is automatically a string in JS
     clickMax = clickMaxDefault;
-}
-// }else {
+    // console.log("click max " , clickMax)
+
+}else {
+    clickMax = choice;
+    // console.log("click max " , clickMax)
     
-// }
-console.log("click max " , clickMax)
+ }
+// console.log("")
 
 leftProductElem.addEventListener('click', clickHandler)
 middleProductElem.addEventListener('click', clickHandler)
