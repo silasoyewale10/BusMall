@@ -1,0 +1,22 @@
+#display {
+    width: 80%;
+    margin-top: 10px;
+}
+#display div{
+    width:30px;
+    outline: 2px solid blue;
+    float:left;
+}
+/* img {
+    width: 100px;
+    height: 100px;
+} */
+head {
+    text-align: center;
+}
+/* #middle_product_img {
+    width:200px;
+} */
+/* displimg {
+    size: 2px;
+} */
