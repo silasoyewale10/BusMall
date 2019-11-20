@@ -1,16 +1,61 @@
+/* *{
+    box-sizing: border-box;
+}
+
+.display:: {
+    content:'';
+    clear:both;
+    width: 80%;
+    margin-top: 10px;
+}
+.column{
+    float:left;
+    width:3.33px;
+    padding: 5px;
+    /* outline: 2px solid blue; */
+
+} */
+/* img {
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+}
+head {
+    text-align: center;
+} */
+/* #middle_product_img {
+    width:200px;
+} */
+/* displimg {
+    size: 2px;
+} */
+
+
+
+
+
+
+
+
+*{
+    box-sizing: border-box;
+}
+
 #display {
     width: 80%;
     margin-top: 10px;
 }
-#display div{
+.left_product_img{
+    float:left;
     width:30px;
     outline: 2px solid blue;
-    float:left;
+
 }
-/* img {
+img {
     width: 100px;
     height: 100px;
-} */
+    display: inline-block;
+}
 head {
     text-align: center;
 }
@@ -19,4 +64,4 @@ head {
 } */
 /* displimg {
     size: 2px;
-} */
+} 
