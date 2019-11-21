@@ -1,6 +1,6 @@
 function Product(name, imageSrc) {
     this.name = name;
-    this.clicks = 0;
+    this.clicks = 0; //danger ensure change back to 0 !!!!
     this.timesShown = 0;
     this.imageSrc = imageSrc;
     Product.arrOfProducts.push(this);
@@ -27,22 +27,10 @@ new Product('usb', './assets/usb.gif');
 new Product('water-can', './assets/water-can.jpg');
 new Product('glass', './assets/wine-glass.jpg');
 
-// console.log(Product.arrOfProducts);
-
-// console.log(Product().this.imageSrc)
-
-// console.log(Product.arrOfProducts.length )
-// console.log(Product.arrOfProducts[6].name)
-
 var leftProductElem = document.getElementById("left_product_img");
 var middleProductElem = document.getElementById("middle_product_img");
 var rightProductElem = document.getElementById("right_product_img");
-// console.log('here',leftProductElem)
 
-
-// var leftImage ;
-// var middleImage = '';
-// var rightImage ='';
 var nameOfLeftImage;
 var nameOfMiddleImage;
 var nameOfRightImage;
@@ -50,63 +38,41 @@ var nameOfRightImage;
 var leftImageIndex;
 var middleImageIndex;
 var rightImageIndex;
-
-var arrOfTimesShown =[];
-var arrOfClicks = [];
 var pickThreeProducts = function (leftImage, middleImage, rightImage) {
-    // arr[1]=2
     leftImageIndex = Math.floor(Math.random() * 20);
     var leftProductInstance = Product.arrOfProducts[leftImageIndex];
     leftProductElem.setAttribute('src', leftProductInstance.imageSrc)
     nameOfLeftImage = leftProductInstance.name;
     leftProductInstance.timesShown++
-
-    arrOfTimesShown.push(leftProductInstance.timesShown++)
-
-
-
+    // console.log(this.name)
     middleImageIndex = Math.floor(Math.random() * 20);
     var middleProductInstance = Product.arrOfProducts[middleImageIndex];
     middleProductElem.setAttribute('src', middleProductInstance.imageSrc)
     nameOfMiddleImage = middleProductInstance.name;
     middleProductInstance.timesShown++
 
-    arrOfTimesShown.push(middleProductInstance.timesShown++)
-
-
+    // console.log('nameOfMiddleImage is ' + nameOfMiddleImage);
+    //console.log(this.name)
 
     rightImageIndex = Math.floor(Math.random() * 20);
     var rightProductInstance = Product.arrOfProducts[rightImageIndex];
     rightProductElem.setAttribute('src', rightProductInstance.imageSrc)
     nameOfRightImage = rightProductInstance.name;
     rightProductInstance.timesShown++
-
-    arrOfTimesShown.push(rightProductInstance.timesShown++)
-
+    // console.log('nameOfRightImage is ' + nameOfRightImage);
 
 }
 pickThreeProducts();
 
-// var imageleft = nameOfLeftImage;
-// var imagemiddle = nameOfMiddleImage;
-// var imageright = nameOfRightImage;
-// console.log('nameOfLeftImage is ' + imageleft);
+var arrOfName = [];
+var arrOfClicks = [];
+var arrOfTimesShown = [];
+
 
 var clickCounter = 0;
-var clickMaxDefault =25;  //default max if no click count is inputted. 
-// var clickMax = 10;
-// var choice = 7;
-// var choice = window.prompt("Boss, How many clicks do you want the user to make ? If you enter nothing, your default click max is 25")
-// if (choice.length == '0') {  //input is automatically a string in JS
-//     clickMax = clickMaxDefault;
-//     // console.log("click max " , clickMax)
+var clickMaxDefault = 25;  //default max if no click count is inputted. 
 
-// } else {
-//     clickMax = choice;
-//     // console.log("click max " , clickMax)
 
-// }
-// console.log("")
 
 leftProductElem.addEventListener('click', clickHandler)
 middleProductElem.addEventListener('click', clickHandler)
@@ -127,13 +93,15 @@ function clickHandler(event) {
     // // for (var x =0; x <= 25; x++){
     //     var thingIclickedOn = event.target;
     var idOfProduct = event.target.id;
-   console.log('arrtimeshown',arrOfTimesShown)
-    
+
+
     if (idOfProduct === 'left_product_img') {
         var leftProduct = Product.arrOfProducts[leftImageIndex];
         var leftName = leftProduct.name;
-        console.log(leftName);
+        console.log("leftName, ", leftName);
         console.log(leftProduct.clicks++)
+        //testing this
+
 
     } else if (idOfProduct === 'middle_product_img') {
         var middleProduct = Product.arrOfProducts[middleImageIndex];
@@ -153,46 +121,172 @@ function clickHandler(event) {
     pickThreeProducts();
     clickCounter++;
 
-    console.log('clickcounter is',clickCounter)
-    console.log('clickMaxDefault',clickMaxDefault)
-    
-    if(clickCounter == clickMaxDefault){
+    console.log('clickcounter is', clickCounter)
+    console.log('clickMaxDefault', clickMaxDefault)
+
+    if (clickCounter == clickMaxDefault) {
         terminateEvent();
+        myChart();
+        //alert("Voting is over")
     }
-    
+
 }
 
-function myChart () {
+function jsonPractise() {
+    var objectProducts = JSON.stringify(Product.arrOfProducts) // stringifies products.ar...
+    localStorage.setItem('gametime', objectProducts)
+    var productInfo = localStorage.getItem('Product.arrOfProducts')
+    return productInfo;
+    console.log(productInfo)
+}
+jsonPractise();
+
+
+
+function productName() {
+    var individualNames = [];
+    for (var x = 0; x < Product.arrOfProducts.length; x++) {
+        individualNames[x] = Product.arrOfProducts[x].name
+    }
+    return individualNames;
+}
+function productClicks() {
+    var individualClicks = [];
+    for (var x = 0; x < Product.arrOfProducts.length; x++) {
+        individualClicks[x] = Product.arrOfProducts[x].clicks
+    }
+    return individualClicks;
+}
+function productShown() {
+    var individualShown = [];
+    for (var x = 0; x < Product.arrOfProducts.length; x++) {
+        individualShown[x] = Product.arrOfProducts[x].timesShown
+    }
+    return individualShown;
+
+}
+
+function myChart() {
+    productClicks();
+    // Product.arrOfProducts[0].clicks = 5;
+    console.log("Product.arrOfProducts[0].clicks", Product.arrOfProducts[0].clicks)
     var ctx = document.getElementById('myChart');
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tantaun', 'unicorn', 'usb', 'water-can', 'glass'],
-        datasets: [{
-            label: 'Number of Votes for Each Product',
-            data: [12, 19],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
+        type: 'bar',
+        data: {
+            labels: productName(),
+            datasets: [{
+                label: 'Number of Clicks for Each Product',
+                data: productClicks(),
+                backgroundColor: [
+                    '#cc65fe',
+                    '#cc65fe',
+                    '#cc65fe',
+                    '#cc65fe',
+                    '#cc65fe',
+                    '#cc65fe',
+                    '#cc65fe',
+                    '#cc65fe',
+                    '#cc65fe',
+                    '#cc65fe',
+                    '#cc65fe',
+                    '#cc65fe',
+                    '#cc65fe',
+                    '#cc65fe',
+                    '#cc65fe',
+                    '#cc65fe',
+                    '#cc65fe',
+                    '#cc65fe',
+                    '#cc65fe',
+                    '#cc65fe'
+
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1,
+            }, {
+
+                label: 'Number of timeshown for Each Product',
+                data: productShown(),
+                backgroundColor: [
+                    '#00FFFF',
+                    '#00FFFF',
+                    '#00FFFF',
+                    '#00FFFF',
+                    '#00FFFF',
+                    '#00FFFF',
+                    '#00FFFF',
+                    '#00FFFF',
+                    '#00FFFF',
+                    '#00FFFF',
+                    '#00FFFF',
+                    '#00FFFF',
+                    '#00FFFF',
+                    '#00FFFF',
+                    '#00FFFF',
+                    '#00FFFF',
+                    '#00FFFF',
+                    '#00FFFF',
+                    '#00FFFF',
+                    '#00FFFF'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+
+
             }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }]
+            }
         }
-    }
-});
- 
+    });
+
 }
-myChart ();
